@@ -10,8 +10,6 @@ interface Props {
 
 const Login: React.FC<Props> = ({login=true}: Props) => {
 
-    const mode: string = login ? 'Login' : 'Register';
-
     return (
         login ? 
         <>

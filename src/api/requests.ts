@@ -1,4 +1,5 @@
 import { getCookie } from 'typescript-cookie'
+import { connectWs } from '../ws_api/connection'
 
 const baseUrl = 'http://127.0.0.1:8000/api/'
 
@@ -45,6 +46,7 @@ export const loginRequest = async (props: loginProps): Promise<boolean> => {
             await getFriendsRequest(csrfToken)
         }
     }
+    connectWs()
     return response.ok
 }
 

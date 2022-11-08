@@ -1,4 +1,5 @@
-import React, {useState, FormEvent, ChangeEvent} from 'react'
+import React, {useState, useContext, ChangeEvent} from 'react'
+import { AuthContext } from '../contexts/AuthContext'
 
 
 interface loginProps {
@@ -15,8 +16,12 @@ const LoginForm: React.FC<Props> = ({loginRequest}: Props) => {
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
+    const authCont = useContext(AuthContext)
+    if (authCont === undefined) return <>AuthContext is undefined</>
+    const login = authCont['login']
+
     const handleSumbit = () => {
-            loginRequest({
+            login({
                 username: username,
                 password: password
             })
@@ -42,6 +47,7 @@ const LoginForm: React.FC<Props> = ({loginRequest}: Props) => {
             <button onClick={handleSumbit}>
                 Login!
             </button>
+            <p>{authCont['authenticated'] ? 'logged in' : 'not logged in'}</p>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import React, {useState, FormEvent, ChangeEvent} from 'react'
+import React, {useState, ChangeEvent} from 'react'
 
 interface registerProps {
     username: string,
