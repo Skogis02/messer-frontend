@@ -1,21 +1,22 @@
 import React, {useState, FormEvent, ChangeEvent} from 'react'
 
-interface LoginData {
+
+interface loginProps {
     username: string,
     password: string
 }
 
 interface Props {
-    LoginRequest: (data: LoginData) => {}
+    loginRequest: (props: loginProps) => Promise<boolean>
 }
 
-const LoginForm: React.FC<Props> = ({LoginRequest}: Props) => {
+const LoginForm: React.FC<Props> = ({loginRequest}: Props) => {
 
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
     const handleSumbit = () => {
-            LoginRequest({
+            loginRequest({
                 username: username,
                 password: password
             })

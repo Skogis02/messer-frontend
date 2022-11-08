@@ -1,23 +1,31 @@
 import React, {useState, FormEvent, ChangeEvent} from 'react'
 
-interface RegistrationData {
+interface registerProps {
     username: string,
     email: string,
     password: string
 }
 
 interface Props {
-    RegisterRequest: (data: RegistrationData) => {}
+    registerRequest: (data: registerProps) => {}
 }
 
-const RegisterForm: React.FC<Props> = ({RegisterRequest}: Props) => {
+const RegisterForm: React.FC<Props> = ({registerRequest}: Props) => {
 
     const [username, setUsername] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmedPassword, setConfirmedPassword] = useState<string>('')
 
-
+    const handleSubmit = () => {
+        if (password === confirmedPassword) {
+            registerRequest({
+                username: username,
+                email: email,
+                password: password
+            })
+        }
+    }
 
     return (
         <>
@@ -46,10 +54,10 @@ const RegisterForm: React.FC<Props> = ({RegisterRequest}: Props) => {
             <input 
                 type='password'
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setEmail(e.target.value)
+                    setConfirmedPassword(e.target.value)
                 }}
             />
-            <button onClick={() => {console.log(username)}}>
+            <button onClick={handleSubmit}>
                 Register!
             </button>
         </>
