@@ -1,9 +1,14 @@
-.topnav {
+.app {
     display: flex;
     flex-direction: column;
+    justify-content: stretch;
+    height: 100vh;
+}
+
+.topnav {
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
     background-color: rgb(35, 125, 252);
     color: white;
     font-size: xx-large;
