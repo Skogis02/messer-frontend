@@ -1,0 +1,13 @@
+.topnav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    background-color: rgb(35, 125, 252);
+    color: white;
+    font-size: xx-large;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-family: georgia
+}

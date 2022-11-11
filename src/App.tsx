@@ -11,11 +11,14 @@ const App: React.FC = () => {
     return (
         <div className='app'>
             <AuthProvider>
-                <Routes>
-                    <Route path='/' element={<Home/>}/>
-                    <Route path='/login' element={<Login login={true}/>}/>
-                    <Route path='/register' element={<Login login={false}/>}/>
-                </Routes>
+                <>
+                    <div className='topnav'>Messer</div>
+                    <Routes>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='/login' element={<Login login={true}/>}/>
+                        <Route path='/register' element={<Login login={false}/>}/>
+                    </Routes>
+                </>
             </AuthProvider>
         </div>
     )
