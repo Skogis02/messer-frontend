@@ -9,7 +9,7 @@ import { AuthProvider } from './contexts/AuthContext';
 const App: React.FC = () => {
 
     return (
-        <>
+        <div className='app'>
             <AuthProvider>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
@@ -17,7 +17,7 @@ const App: React.FC = () => {
                     <Route path='/register' element={<Login login={false}/>}/>
                 </Routes>
             </AuthProvider>
-        </>
+        </div>
     )
 }
 

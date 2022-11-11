@@ -1,0 +1,41 @@
+.login-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    gap: 10px;
+}
+
+.labeled-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.univ-input {
+    height: 2em;
+    width: 30em;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px
+    
+}
+
+.univ-button {
+    background-color: rgb(35, 125, 252);
+    border-radius: 5px;
+    border-color: transparent;
+    width: 100%;
+    font-size: large;
+    margin-top: 10px
+}
+
+
+.univ-button:hover {
+    background-color: rgb(31, 108, 214);
+}

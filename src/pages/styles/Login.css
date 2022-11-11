@@ -1,0 +1,24 @@
+.login-pg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: lightgray
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3), -2px -2px 5px rgba(0,0,0,0.3);
+    height: 60vh;
+}
+
+.change-site {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
