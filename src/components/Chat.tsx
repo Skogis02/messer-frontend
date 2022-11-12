@@ -4,6 +4,60 @@ import { ChatInputField } from './ChatInputField'
 import { useFriendContext, messageProps } from '../contexts/FriendContex'
 import './styles/Chat.css'
 
+const sentMessages: messageProps[] = [
+    {
+        fromUser: 'skogis',
+        toUser: 'kalle',
+        createdAt: 1,
+        hasBeenRead: false,
+        readAt: null,
+        content: 'hej!'
+    },
+    {
+        fromUser: 'skogis',
+        toUser: 'kalle',
+        createdAt: 2,
+        hasBeenRead: false,
+        readAt: null,
+        content: 'hej2!'
+    },
+    {
+        fromUser: 'skogis',
+        toUser: 'per',
+        createdAt: 2,
+        hasBeenRead: false,
+        readAt: null,
+        content: 'hej per!'
+    }
+]
+
+const receivedMessages: messageProps[] = [
+    {
+        fromUser: 'kalle',
+        toUser: 'skogis',
+        createdAt: 1,
+        hasBeenRead: false,
+        readAt: null,
+        content: 'hej på dig!'
+    },
+    {
+        fromUser: 'kalle',
+        toUser: 'skogis',
+        createdAt: 1,
+        hasBeenRead: false,
+        readAt: null,
+        content: 'hej på dig2!'
+    },
+    {
+        fromUser: 'per',
+        toUser: 'skogis',
+        createdAt: 1,
+        hasBeenRead: false,
+        readAt: null,
+        content: 'hej på dig skogis!'
+    },
+]
+
 interface createMessageProps {
     sent: boolean,
     message: messageProps
@@ -12,7 +66,7 @@ interface createMessageProps {
 const CreateMessage = ({sent, message}: createMessageProps): JSX.Element => {
     return (
         <div className={sent ? 'sent-div': 'received-div'}>
-            <Message message={message}/>
+            <Message message={message} sent={sent}/>
         </div>
     )
 }
@@ -58,7 +112,9 @@ const RenderMessages = ({selectedFriend, sentMessages, receivedMessages}: render
 export const Chat: React.FC = () => {
 
     const friendContext = useFriendContext()
-    
+    friendContext.setSentMessages(sentMessages)
+    friendContext.setReceivedMessages(receivedMessages)
+
     return (
     <div className='chat'>
         <div

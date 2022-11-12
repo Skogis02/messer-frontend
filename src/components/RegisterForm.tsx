@@ -1,4 +1,5 @@
 import React, {useState, ChangeEvent} from 'react'
+import { registerRequest } from '../api/requests'
 
 interface registerProps {
     username: string,
@@ -6,25 +7,24 @@ interface registerProps {
     password: string
 }
 
-interface Props {
-    registerRequest: (data: registerProps) => {}
-}
 
-const RegisterForm: React.FC<Props> = ({registerRequest}: Props) => {
+const RegisterForm: React.FC = () => {
 
     const [username, setUsername] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmedPassword, setConfirmedPassword] = useState<string>('')
 
-    const handleSubmit = () => {
-        if (password === confirmedPassword) {
-            registerRequest({
-                username: username,
-                email: email,
-                password: password
-            })
+    const handleSubmit = async () => {
+        if (password !== confirmedPassword) {
+            return
         }
+        const status = await registerRequest({
+            username: username,
+            email: email,
+            password: password
+        })
+
     }
 
     return (

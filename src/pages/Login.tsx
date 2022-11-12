@@ -1,15 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 import LoginForm from '../components/LoginForm'
-import RegisterForm from '../components/RegisterForm';
-import { loginRequest, registerRequest } from '../api/requests'
+import RegisterForm from '../components/RegisterForm'
 import './styles/Login.css'
 
-interface Props {
+interface loginPageProps {
     login: boolean
 }
 
-const Login: React.FC<Props> = ({login=true}: Props) => {
+const Login: React.FC<loginPageProps> = ({login=true}: loginPageProps) => {
 
     return (
         login ? 
@@ -18,7 +17,7 @@ const Login: React.FC<Props> = ({login=true}: Props) => {
                 <h3>
                     Login
                 </h3>
-                <LoginForm loginRequest={loginRequest}/>
+                <LoginForm/>
                 <div className='change-site'>
                     <p>Don't have an account? <Link to='/register'> Register! </Link></p>
                 </div>
@@ -30,7 +29,7 @@ const Login: React.FC<Props> = ({login=true}: Props) => {
                 <h3>
                     Register
                 </h3>
-                <RegisterForm registerRequest={registerRequest}/>
+                <RegisterForm/>
                 <div className='change-site'>
                     <p>Already have an account? <Link to='/login'> Login! </Link></p>
                 </div>

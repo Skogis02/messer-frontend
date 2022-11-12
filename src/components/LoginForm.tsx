@@ -1,32 +1,27 @@
 import React, {useState, useContext, ChangeEvent} from 'react'
-import { AuthContext } from '../contexts/AuthContext'
+import { loginRequest } from '../api/requests'
+import { useAuthContext } from '../contexts/AuthContext'
 import './styles/LoginForm.css'
-
 
 interface loginProps {
     username: string,
     password: string
 }
 
-interface Props {
-    loginRequest: (props: loginProps) => Promise<boolean>
-}
-
-const LoginForm: React.FC<Props> = ({loginRequest}: Props) => {
-
+const LoginForm: React.FC = () => {
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 
-    const authCont = useContext(AuthContext)
-    if (authCont === undefined) return <>AuthContext is undefined</>
-    const login = authCont['login']
+    const authContext = useAuthContext()
 
-    const handleSumbit = () => {
-            login({
-                username: username,
-                password: password
-            })
-
+    const handleSumbit = async () => {
+        const status = await loginRequest({
+            username: username,
+            password: password
+        })
+        if (status) {
+            authContext.setAuthenticated(true)
+        }
     }
 
     return (

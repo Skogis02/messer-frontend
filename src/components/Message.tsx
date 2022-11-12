@@ -3,14 +3,15 @@ import './styles/Message.css'
 import { messageProps } from '../contexts/FriendContex'
 
 interface props {
+  sent: boolean,
   message: messageProps
 }
 
-export const Message: React.FC<props> = ({message}: props) => {
+export const Message: React.FC<props> = ({sent, message}: props) => {
 
   return (
-    
-    <div className='message'>
+
+    <div className={sent ? 'sent-message': 'received-message'}>
         {message.content}
     </div>
   )
