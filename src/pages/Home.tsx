@@ -8,8 +8,8 @@ import { Chat, messageProps } from '../components/Chat'
 const sentMessages: messageProps[] = [
     {
         fromUser: 'kalle',
-        content: 'skicka 3',
-        createdAt: 3
+        content: 'skicka 1',
+        createdAt: 1
     },
     {
         fromUser: 'kalle',
@@ -18,26 +18,26 @@ const sentMessages: messageProps[] = [
     },
     {
         fromUser: 'kalle',
-        content: 'skicka 1',
-        createdAt: 1
+        content: 'skicka 3',
+        createdAt: 3
     }
 ]
 
 const receivedMessages: messageProps[] = [
     {
         fromUser: 'per',
-        content: 'per 2',
-        createdAt: 2
+        content: 'per 1',
+        createdAt: 1
     },
     {
         fromUser: 'per',
-        content: 'per 3',
-        createdAt: 3
+        content: 'per 2',
+        createdAt: 4
     },
     {
         fromUser: 'martin',
         content: 'tjenare',
-        createdAt: 1
+        createdAt: 3
     }
 ]
 

@@ -51,7 +51,7 @@ export const Chat: React.FC<chatProps> = ({friend, sentMessages, receivedMessage
             while (
                 r < receivedMessages.length &&
                 sent.createdAt > receivedMessages[r].createdAt
-                ) {
+            ) {
                 if (receivedMessages[r].fromUser === friend) {
                     messageArr.push(
                         CreateMessage({sent: false, content: receivedMessages[r].content})
@@ -66,7 +66,9 @@ export const Chat: React.FC<chatProps> = ({friend, sentMessages, receivedMessage
         }
         while (r < receivedMessages.length) {
             if (receivedMessages[r].fromUser === friend) {
-                CreateMessage({sent: false, content: receivedMessages[r].content})
+                messageArr.push(
+                    CreateMessage({sent: false, content: receivedMessages[r].content})
+                )
             }
             r++
         }
