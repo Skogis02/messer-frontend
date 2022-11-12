@@ -1,6 +1,7 @@
 import React, {useState, useContext, ChangeEvent} from 'react'
-import { loginRequest } from '../api/requests'
 import { useAuthContext } from '../contexts/AuthContext'
+import { loginRequest } from '../api/requests'
+import { connectWs, sendMessage } from '../ws_api/connection'
 import './styles/LoginForm.css'
 
 interface loginProps {
@@ -20,6 +21,8 @@ const LoginForm: React.FC = () => {
             password: password
         })
         if (status) {
+            const socket = connectWs()
+            authContext.setSocket(socket)
             authContext.setAuthenticated(true)
         }
     }

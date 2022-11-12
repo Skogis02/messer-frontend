@@ -1,4 +1,6 @@
-import React, {PropsWithChildren, createContext, useContext, useState} from 'react'
+import React, {PropsWithChildren, createContext, useContext, useState, useEffect} from 'react'
+import { getFriendsRequest } from '../api/requests'
+import { getCookie } from 'typescript-cookie'
 
 export interface messageProps {
     fromUser: string,
@@ -37,6 +39,17 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
     const [selectedFriend, setSelectedFriend] = useState<string>('')
     const [sentMessages, setSentMessages] = useState<messageProps[]>([])
     const [receivedMessages, setReceivedMessages] = useState<messageProps[]>([])
+
+    useEffect(() => {
+        const asyncGet = async () => {
+            const token = getCookie('csrftoken')
+            if (token === undefined) throw new Error('csrftoken is undefined!')
+            const [status, data] = await getFriendsRequest(token)
+            if (!status) throw new Error(data)
+            setFriends(data)
+        }
+        asyncGet()
+    })
 
     const context: friendContextProps = {
         friends: friends,

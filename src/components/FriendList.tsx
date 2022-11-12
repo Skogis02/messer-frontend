@@ -26,7 +26,7 @@ export const FriendList: React.FC = () => {
 
   const friendContext = useFriendContext()
 
-  friendContext.setFriends(friends)
+  //friendContext.setFriends(friends)
 
   return (
     <div className='friend-list'>

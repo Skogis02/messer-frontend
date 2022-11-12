@@ -77,6 +77,5 @@ export const getFriendsRequest = async (csrfToken: string) => {
         endpoint: 'get-friends/', 
         csrfToken: csrfToken, 
     })
-    console.log(await response.json())
-    return response.ok
+    return [response.ok, await response.json()]
 }

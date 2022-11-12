@@ -5,7 +5,8 @@ import { connectWs } from '../ws_api/connection'
 interface authContextProps {
   authenticated: boolean,
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>,
-  useSocket: () => WebSocket
+  useSocket: () => WebSocket,
+  setSocket: React.Dispatch<React.SetStateAction<WebSocket|undefined>>,
 }
 
 interface loginProps {
@@ -41,6 +42,7 @@ export const AuthProvider: React.FC<authProviderProps> = ({children}: authProvid
     authenticated: authenticated,
     setAuthenticated: setAuthenticated,
     useSocket: useSocket,
+    setSocket: setSocket
   }
 
   return (

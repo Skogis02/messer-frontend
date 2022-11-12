@@ -3,12 +3,10 @@ import { Navigate } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext';
 import { FriendProvider } from '../contexts/FriendContex';
 import { FriendList } from '../components/FriendList';
-import { Message } from '../components/Message'
 import './styles/Home.css'
 import { Chat } from '../components/Chat'
 
 const Home: React.FC = () => {
-
     const [selectedFriend, setSelectedFriend] = useState<string>('')
 
     const authContext = useAuthContext()
