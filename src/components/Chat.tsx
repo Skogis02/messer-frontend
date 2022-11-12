@@ -1,5 +1,6 @@
 import React from 'react'
 import { Message, } from './Message'
+import { ChatInputField } from './ChatInputField'
 import './styles/Chat.css'
 
 export interface messageProps {
@@ -78,7 +79,12 @@ export const Chat: React.FC<chatProps> = ({friend, sentMessages, receivedMessage
 
     return (
     <div className='chat'>
-        {RenderMessages()}
+        <div
+        className='messages'
+        >
+            {RenderMessages()}
+        </div>
+        <ChatInputField/>
     </div>
   )
 }
