@@ -1,20 +1,20 @@
 import React from 'react'
 import './styles/Friend.css'
+import { useFriendContext } from '../contexts/FriendContex'
 
 interface friendProps {
     friendUsername: string;
-    isSelected: boolean;
-    setSelectedFriend: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const Friend = ({friendUsername, isSelected, setSelectedFriend}: friendProps) => {
+export const Friend = ({friendUsername}: friendProps) => {
 
+    const friendContext = useFriendContext()
 
     return (
         <button
-        className={isSelected ? 'friend-selected' : 'friend'}
+        className={friendUsername === friendContext.selectedFriend ? 'friend-selected' : 'friend'}
         onClick={
-            () => setSelectedFriend(friendUsername)
+            () => friendContext.setSelectedFriend(friendUsername)
         }
         >
             {friendUsername}

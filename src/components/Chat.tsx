@@ -1,88 +1,74 @@
 import React from 'react'
-import { Message, } from './Message'
+import { Message } from './Message'
 import { ChatInputField } from './ChatInputField'
+import { useFriendContext, messageProps } from '../contexts/FriendContex'
 import './styles/Chat.css'
 
-export interface messageProps {
-    fromUser: string,
-    content: string,
-    createdAt: number,
+interface createMessageProps {
+    sent: boolean,
+    message: messageProps
 }
 
-export interface chatProps {
-    friend: string
+const CreateMessage = ({sent, message}: createMessageProps): JSX.Element => {
+    return (
+        <div className={sent ? 'sent-div': 'received-div'}>
+            <Message message={message}/>
+        </div>
+    )
+}
+
+interface renderMessagesProps {
+    selectedFriend: string,
     sentMessages: messageProps[],
     receivedMessages: messageProps[],
 }
 
-
-
-
-export const Chat: React.FC<chatProps> = ({friend, sentMessages, receivedMessages}: chatProps) => {
-
-    interface createMessageProps {
-        sent: boolean;
-        content: string
-    }
-
-    const CreateMessage = ({sent, content}: createMessageProps): JSX.Element => {
-        if (sent) {
-            return (
-                <div className='sent-div'>
-                    <Message>
-                        {content}
-                    </Message>
-                </div>
-            )
-        } else {
-            return (
-                <div className='received-div'>
-                    <Message>
-                        {content}
-                    </Message>
-                </div>
-            )
-        }
-    }
-
-    const RenderMessages = () => {
-        const messageArr: JSX.Element[] = []
-        let r: number = 0
-        for (const sent of sentMessages) {
-            while (
-                r < receivedMessages.length &&
-                sent.createdAt > receivedMessages[r].createdAt
-            ) {
-                if (receivedMessages[r].fromUser === friend) {
-                    messageArr.push(
-                        CreateMessage({sent: false, content: receivedMessages[r].content})
-                    )
-                }
-                r++
-            }
-            messageArr.push(
-                CreateMessage({sent: true, content: sent.content})
-            )
-
-        }
-        while (r < receivedMessages.length) {
-            if (receivedMessages[r].fromUser === friend) {
+const RenderMessages = ({selectedFriend, sentMessages, receivedMessages}: renderMessagesProps): JSX.Element[] => {
+    const messageArr: JSX.Element[] = []
+    let r: number = 0
+    for (const sent of sentMessages) {
+        while (
+            r < receivedMessages.length &&
+            sent.createdAt > receivedMessages[r].createdAt
+        ) {
+            if (receivedMessages[r].fromUser === selectedFriend) {
                 messageArr.push(
-                    CreateMessage({sent: false, content: receivedMessages[r].content})
+                    CreateMessage({sent: false, message: receivedMessages[r]})
                 )
             }
             r++
         }
-        return messageArr
+        if (sent.toUser === selectedFriend) {
+            messageArr.push(
+                CreateMessage({sent: true, message: sent})
+            )
+        }
     }
+    while (r < receivedMessages.length) {
+        if (receivedMessages[r].fromUser === selectedFriend) {
+            messageArr.push(
+                CreateMessage({sent: false, message: receivedMessages[r]})
+            )
+        }
+        r++
+    }
+    return messageArr
+}
 
+export const Chat: React.FC = () => {
 
+    const friendContext = useFriendContext()
+    
     return (
     <div className='chat'>
         <div
         className='messages'
         >
-            {RenderMessages()}
+            {RenderMessages({
+                selectedFriend: friendContext.selectedFriend,
+                sentMessages: friendContext.sentMessages,
+                receivedMessages: friendContext.receivedMessages 
+            })}
         </div>
         <ChatInputField/>
     </div>

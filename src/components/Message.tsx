@@ -1,13 +1,17 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import './styles/Message.css'
+import { messageProps } from '../contexts/FriendContex'
 
-export interface messageComponentProps extends PropsWithChildren {}
+interface props {
+  message: messageProps
+}
 
-export const Message: React.FC<messageComponentProps> = ({children}: messageComponentProps) => {
+export const Message: React.FC<props> = ({message}: props) => {
 
   return (
+    
     <div className='message'>
-        {children}
+        {message.content}
     </div>
   )
 }

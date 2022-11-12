@@ -1,6 +1,6 @@
 import React, {PropsWithChildren, createContext, useContext, useState} from 'react'
 
-interface messageProps {
+export interface messageProps {
     fromUser: string,
     toUser: string,
     createdAt: number,

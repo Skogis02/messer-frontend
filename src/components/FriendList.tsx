@@ -3,31 +3,37 @@ import './styles/FriendList.css'
 import { Friend } from './Friend'
 import { useFriendContext } from '../contexts/FriendContex'
 
-interface friendListProps {
+const friends = ['per', 'kalle', 'jacob']
+
+interface renderFriendsProps {
   friends: string[],
   selectedFriend: string,
-  setSelectedFriend: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const FriendList: React.FC<friendListProps> = ({friends, selectedFriend, setSelectedFriend}: friendListProps) => {
-
-  const RenderFriends = (): JSX.Element[] => {
-    const friendsArr = []
-    for (const friend of friends) {
-      friendsArr.push(
-        <Friend
-          friendUsername={friend}
-          isSelected={friend === selectedFriend}
-          setSelectedFriend={setSelectedFriend}
-        />
-      )
-    }
-    return(friendsArr)
+const RenderFriends = ({friends, selectedFriend}: renderFriendsProps): JSX.Element[] => {
+  const friendsArr = []
+  for (const friend of friends) {
+    friendsArr.push(
+      <Friend
+        friendUsername={friend}
+      />
+    )
   }
+  return(friendsArr)
+}
+
+export const FriendList: React.FC = () => {
+
+  const friendContext = useFriendContext()
+
+  friendContext.setFriends(friends)
 
   return (
     <div className='friend-list'>
-      {RenderFriends()}
+      {RenderFriends({
+        friends: friendContext.friends,
+        selectedFriend: friendContext.selectedFriend,
+      })}
     </div>
   )
 }
