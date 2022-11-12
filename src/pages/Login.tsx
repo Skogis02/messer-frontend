@@ -1,7 +1,9 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import LoginForm from '../components/LoginForm'
 import RegisterForm from '../components/RegisterForm'
+import { useAuthContext } from '../contexts/AuthContext'
 import './styles/Login.css'
 
 interface loginPageProps {
@@ -9,6 +11,9 @@ interface loginPageProps {
 }
 
 const Login: React.FC<loginPageProps> = ({login=true}: loginPageProps) => {
+
+    const authContext = useAuthContext()
+    if (authContext.authenticated) return <Navigate to='/'/>
 
     return (
         login ? 
