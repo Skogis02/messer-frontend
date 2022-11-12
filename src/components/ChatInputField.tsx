@@ -13,7 +13,7 @@ export const ChatInputField: React.FC = () => {
         <button
         className='send-button'
         >
-            Send!
+          Send!
         </button>
     </div>
   )

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { FriendList } from '../components/FriendList';
 import { Message } from '../components/Message'
@@ -41,6 +41,8 @@ const receivedMessages: messageProps[] = [
     }
 ]
 
+const friends = ['per', 'martin', 'jacob']
+
 const Home: React.FC = () => {
     const authCont = useContext(AuthContext)
     if (authCont === undefined) return <>AuthContext is undefined</>
@@ -48,7 +50,7 @@ const Home: React.FC = () => {
     
     return (
         <div className='home-pg'>
-            <FriendList/>
+            <FriendList friends={friends} selectedFriend='jacob'/>
             <Chat friend='per' sentMessages={sentMessages} receivedMessages={receivedMessages}/>
         </div>
     )

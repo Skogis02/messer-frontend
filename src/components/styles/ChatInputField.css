@@ -10,7 +10,6 @@
 .univ-input {
     flex-grow: 1;
     font-size: large;
-    border-color: transparent;
 }
 
 .send-button {

@@ -1,0 +1,23 @@
+.friend {
+    padding: 15px;
+    background-color: lightgrey;
+    color: rgb(54, 54, 54);
+    font-size: large;
+    border-radius: 15px;
+    border-color: transparent;
+    gap: 15px;
+}
+
+.friend-selected {
+    padding: 15px;
+    background-color: grey;
+    color: rgb(54, 54, 54);
+    font-size: large;
+    border-radius: 15px;
+    border-color: transparent;
+    gap: 15px;
+}
+
+.friend:hover {
+    background-color: grey;
+}
