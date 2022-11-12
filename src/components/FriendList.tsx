@@ -1,13 +1,15 @@
 import React from 'react'
 import './styles/FriendList.css'
 import { Friend } from './Friend'
+import { useFriendContext } from '../contexts/FriendContex'
 
 interface friendListProps {
   friends: string[],
-  selectedFriend: string
+  selectedFriend: string,
+  setSelectedFriend: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const FriendList: React.FC<friendListProps> = ({friends, selectedFriend}: friendListProps) => {
+export const FriendList: React.FC<friendListProps> = ({friends, selectedFriend, setSelectedFriend}: friendListProps) => {
 
   const RenderFriends = (): JSX.Element[] => {
     const friendsArr = []
@@ -16,6 +18,7 @@ export const FriendList: React.FC<friendListProps> = ({friends, selectedFriend}:
         <Friend
           friendUsername={friend}
           isSelected={friend === selectedFriend}
+          setSelectedFriend={setSelectedFriend}
         />
       )
     }

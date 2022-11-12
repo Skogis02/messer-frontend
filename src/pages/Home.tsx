@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import { FriendProvider } from '../contexts/FriendContex';
 import { FriendList } from '../components/FriendList';
 import { Message } from '../components/Message'
 import './styles/Home.css'
@@ -43,15 +44,27 @@ const receivedMessages: messageProps[] = [
 
 const friends = ['per', 'martin', 'jacob']
 
+
+
 const Home: React.FC = () => {
+
+    const [selectedFriend, setSelectedFriend] = useState<string>('')
+
     const authCont = useContext(AuthContext)
     if (authCont === undefined) return <>AuthContext is undefined</>
     const authenticated = authCont['authenticated']
+
     
     return (
         <div className='home-pg'>
-            <FriendList friends={friends} selectedFriend='jacob'/>
-            <Chat friend='per' sentMessages={sentMessages} receivedMessages={receivedMessages}/>
+            <FriendProvider>
+                <FriendList
+                friends={friends} 
+                selectedFriend={selectedFriend}
+                setSelectedFriend={setSelectedFriend}
+                />
+                <Chat friend='per' sentMessages={sentMessages} receivedMessages={receivedMessages}/>
+            </FriendProvider>
         </div>
     )
 }
