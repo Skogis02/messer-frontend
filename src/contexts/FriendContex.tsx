@@ -1,13 +1,15 @@
 import React, {PropsWithChildren, createContext, useContext, useState, useEffect} from 'react'
 import { getFriendsRequest } from '../api/requests'
 import { getCookie } from 'typescript-cookie'
+import { useAuthContext } from './AuthContext'
+import { createOnMessages } from '../ws_api/endpoints'
 
 export interface messageProps {
     fromUser: string,
     toUser: string,
     createdAt: number,
     hasBeenRead: boolean,
-    readAt: boolean|null,
+    readAt: number|null,
     content: string
 }
 
@@ -35,10 +37,15 @@ export const useFriendContext = () => {
 interface friendProviderProps extends PropsWithChildren {}
 
 export const FriendProvider: React.FC<friendProviderProps> = ({children}: friendProviderProps) => {
+
     const [friends, setFriends] = useState<string[]>([])
     const [selectedFriend, setSelectedFriend] = useState<string>('')
     const [sentMessages, setSentMessages] = useState<messageProps[]>([])
     const [receivedMessages, setReceivedMessages] = useState<messageProps[]>([])
+
+    const authContext = useAuthContext()
+
+    const onMessages = createOnMessages({setSentMessages, setReceivedMessages})
 
     useEffect(() => {
         const asyncGet = async () => {
@@ -49,7 +56,27 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
             setFriends(data)
         }
         asyncGet()
-    })
+        const socket = authContext.useSocket()
+        socket.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data)
+            console.log(data)
+            if (data.type === 'messages') onMessages(data.content)
+        })
+        const asyncSend = async () => {
+            await setTimeout(() => {
+                while (socket.readyState !== 1) {console.log(socket.readyState)}
+                socket.send(
+                    JSON.stringify({
+                        'endpoint': 'get_messages',
+                        'content': {}
+                    })
+                )},
+                1000
+            )              
+        }
+        asyncSend()
+
+    }, [])
 
     const context: friendContextProps = {
         friends: friends,
