@@ -1,0 +1,30 @@
+.chat-input-field {
+    display: flex;
+    padding: 15px;
+    background-color: lightgrey;
+    border-radius: 15px;
+    gap: 15px;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,0.3)
+}
+
+.univ-input {
+    flex-grow: 1;
+    font-size: large;
+}
+
+.send-button {
+    font-size: large;
+    background-color: rgb(35, 125, 252);
+    border-radius: 15px;
+    color: white;
+    border-color: transparent;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.send-button:hover {
+    background-color: rgb(31, 108, 214);
+}
+

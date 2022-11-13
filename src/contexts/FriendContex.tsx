@@ -60,7 +60,7 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
         socket.addEventListener('message', (event) => {
             const data = JSON.parse(event.data)
             if (data.type === 'messages') onMessages(data.content)
-            if (data.type == 'received_message') onReceivedMessage(data.content)
+            if (data.type === 'received_message') onReceivedMessage(data.content)
         })
         const asyncSend = async () => {
             setTimeout(() => {

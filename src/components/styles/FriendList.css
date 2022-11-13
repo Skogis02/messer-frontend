@@ -1,11 +1,17 @@
 .friend-list {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
     padding: 10px;
-    gap: 10px;
     width: 30%;
     border-right-color: grey;
     border-right-width: 1px;
     border-right-style: solid;
+}
+
+.friend-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
 }

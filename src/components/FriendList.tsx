@@ -2,6 +2,7 @@ import React from 'react'
 import './styles/FriendList.css'
 import { Friend } from './Friend'
 import { useFriendContext } from '../contexts/FriendContex'
+import { FriendRequestInputField} from './FriendRequestInputField'
 
 interface renderFriendsProps {
   friends: string[],
@@ -26,10 +27,13 @@ export const FriendList: React.FC = () => {
 
   return (
     <div className='friend-list'>
-      {RenderFriends({
-        friends: friendContext.friends,
-        selectedFriend: friendContext.selectedFriend,
-      })}
+      <div className='friend-container'>
+        {RenderFriends({
+          friends: friendContext.friends,
+          selectedFriend: friendContext.selectedFriend,
+        })}
+      </div>
+      <FriendRequestInputField/>
     </div>
   )
 }
