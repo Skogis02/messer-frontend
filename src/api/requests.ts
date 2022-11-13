@@ -58,7 +58,7 @@ export const registerRequest = async (props: registerProps): Promise<boolean> =>
         endpoint: 'register/',
         body: props
     })
-    console.log(await response.json())
+    console.log(response)
     return response.ok
 }
 
