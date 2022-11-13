@@ -1,4 +1,6 @@
-import { messageProps } from '../contexts/FriendContex'
+import { messageProps, friendRequestProps } from '../contexts/FriendContex'
+
+// Messages
 
 interface messagePythonProps {
     from_user: string,
@@ -14,7 +16,7 @@ interface messagesPythonProps {
     received_messages: messagePythonProps[]
 }
 
-const parseMessagePython = (messagePython: messagePythonProps) => {
+const parseMessagePython = (messagePython: messagePythonProps): messageProps => {
     const message: messageProps = {
         fromUser: messagePython.from_user,
         toUser: messagePython.to_user,
@@ -51,6 +53,57 @@ export const createOnReceivedMessage = ({setReceivedMessages}: createOnReceivedM
         const receivedMessage: messageProps = parseMessagePython(messagePython)
         setReceivedMessages((prevReceivedMessages) => {
             return prevReceivedMessages.concat(receivedMessage)
-            })
+        })
+    }
+}
+
+// Friend Requests
+
+interface friendRequestPythonProps {
+    from_user: string,
+    to_user: string,
+    created_at: string
+}
+
+interface friendRequestsPythonProps {
+    received_friend_requests: friendRequestPythonProps[],
+    sent_friend_requests: friendRequestPythonProps[]
+}
+
+const parseFriendRequestPython = (friendRequestPython: friendRequestPythonProps): friendRequestProps => {
+    const friendRequest: friendRequestProps = {
+        fromUser: friendRequestPython.from_user,
+        toUser: friendRequestPython.to_user,
+        createdAt: Date.parse(friendRequestPython.created_at)
+    }
+    return friendRequest
+}
+
+interface createOnFriendRequestsProps {
+    setSentFriendRequests: React.Dispatch<React.SetStateAction<friendRequestProps[]>>,
+    setReceivedFriendRequests: React.Dispatch<React.SetStateAction<friendRequestProps[]>>
+}
+
+export const createOnFriendRequests = ({setSentFriendRequests, setReceivedFriendRequests}: createOnFriendRequestsProps):
+((friendRequestsPython: friendRequestsPythonProps) => void) => {
+    return (friendRequestsPython: friendRequestsPythonProps) => {
+        const sentFriendRequest: friendRequestProps[] = friendRequestsPython.sent_friend_requests.map(parseFriendRequestPython)
+        const receivedFriendRequests: friendRequestProps[] = friendRequestsPython.received_friend_requests.map(parseFriendRequestPython)
+        setSentFriendRequests(sentFriendRequest)
+        setReceivedFriendRequests(receivedFriendRequests)
+    }
+}
+
+interface createOnReceivedFriendRequestsProps {
+    setReceivedFriendRequests: React.Dispatch<React.SetStateAction<friendRequestProps[]>>
+}
+
+export const createOnReceivedFriendRequest = ({setReceivedFriendRequests}: createOnReceivedFriendRequestsProps): 
+((friendRequestPython: friendRequestPythonProps) => void) => {
+    return (friendRequestPython: friendRequestPythonProps) => {
+        const receivedFriendRequest: friendRequestProps = parseFriendRequestPython(friendRequestPython)
+        setReceivedFriendRequests((prevReceivedFriendRequests) => {
+            return prevReceivedFriendRequests.concat(receivedFriendRequest)
+        })
     }
 }

@@ -2,7 +2,7 @@ import React, {PropsWithChildren, createContext, useContext, useState, useEffect
 import { getFriendsRequest } from '../api/requests'
 import { getCookie } from 'typescript-cookie'
 import { useAuthContext } from './AuthContext'
-import { createOnMessages, createOnReceivedMessage } from '../ws_api/endpoints'
+import { createOnMessages, createOnReceivedMessage, createOnFriendRequests, createOnReceivedFriendRequest } from '../ws_api/endpoints'
 
 export interface messageProps {
     fromUser: string,
@@ -11,6 +11,12 @@ export interface messageProps {
     hasBeenRead: boolean,
     readAt: number|null,
     content: string
+}
+
+export interface friendRequestProps {
+    fromUser: string,
+    toUser: string,
+    createdAt: number
 }
 
 interface friendContextProps {
@@ -42,12 +48,21 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
     const [selectedFriend, setSelectedFriend] = useState<string>('')
     const [sentMessages, setSentMessages] = useState<messageProps[]>([])
     const [receivedMessages, setReceivedMessages] = useState<messageProps[]>([])
+    const [sentFriendRequests, setSentFriendRequests] = useState<friendRequestProps[]>([])
+    const [receivedFriendRequests, setReceivedFriendRequests] = useState<friendRequestProps[]>([])
 
     const authContext = useAuthContext()
 
     useEffect(() => {
+                        console.log(sentFriendRequests)
+                        console.log(receivedFriendRequests)
+                    }, [sentFriendRequests, receivedFriendRequests])
+
+    useEffect(() => {
         const onMessages = createOnMessages({setSentMessages, setReceivedMessages})
         const onReceivedMessage = createOnReceivedMessage({setReceivedMessages})
+        const onFriendRequests = createOnFriendRequests({setSentFriendRequests, setReceivedFriendRequests})
+        const onReceivedFriendRequest = createOnReceivedFriendRequest({setReceivedFriendRequests})
         const asyncGet = async () => {
             const token = getCookie('csrftoken')
             if (token === undefined) throw new Error('csrftoken is undefined!')
@@ -61,6 +76,8 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
             const data = JSON.parse(event.data)
             if (data.type === 'messages') onMessages(data.content)
             if (data.type === 'received_message') onReceivedMessage(data.content)
+            if (data.type === 'friend_requests') onFriendRequests(data.content)
+            if (data.type === 'new_friend_request') onReceivedFriendRequest(data.content)
         })
         const asyncSend = async () => {
             setTimeout(() => {
@@ -70,8 +87,16 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
                         'endpoint': 'get_messages',
                         'content': {}
                     })
-                )},
-                1000
+                )
+                socket.send(
+                    JSON.stringify({
+                        'endpoint': 'get_friend_requests',
+                        'content': {}
+                    })
+                )
+                
+            },
+            1000
             )              
         }
         asyncSend()
