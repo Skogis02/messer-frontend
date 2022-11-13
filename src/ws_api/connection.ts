@@ -18,18 +18,3 @@ export const sendMessage = (props: sendMesssageProps) => {
     })
     props.socket.send(message)
 }
-
-interface eventDataProps {
-    type: string,
-    content: {}
-}
-
-interface eventRouterProps {
-    endpoints: (({type, content}: eventDataProps) => void)[]
-}
-
-export const eventRouter = ({endpoints}: eventRouterProps) => {}
-
-eventRouter({
-    endpoints: [({type, content}: eventDataProps) => {}]
-})

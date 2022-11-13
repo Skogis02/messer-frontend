@@ -3,8 +3,6 @@ import './styles/FriendList.css'
 import { Friend } from './Friend'
 import { useFriendContext } from '../contexts/FriendContex'
 
-const friends = ['per', 'kalle', 'jacob']
-
 interface renderFriendsProps {
   friends: string[],
   selectedFriend: string,
@@ -25,8 +23,6 @@ const RenderFriends = ({friends, selectedFriend}: renderFriendsProps): JSX.Eleme
 export const FriendList: React.FC = () => {
 
   const friendContext = useFriendContext()
-
-  //friendContext.setFriends(friends)
 
   return (
     <div className='friend-list'>

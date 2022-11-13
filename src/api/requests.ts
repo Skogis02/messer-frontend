@@ -38,7 +38,6 @@ export const loginRequest = async (props: loginProps): Promise<boolean> => {
         endpoint: 'login/',
         body: props
     })
-    console.log(await response.json())
     if (response.ok) {
         const csrfToken = getCookie('csrftoken')
         if (typeof csrfToken === 'string') {

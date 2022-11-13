@@ -2,7 +2,7 @@ import React, {PropsWithChildren, createContext, useContext, useState, useEffect
 import { getFriendsRequest } from '../api/requests'
 import { getCookie } from 'typescript-cookie'
 import { useAuthContext } from './AuthContext'
-import { createOnMessages } from '../ws_api/endpoints'
+import { createOnMessages, createOnReceivedMessage } from '../ws_api/endpoints'
 
 export interface messageProps {
     fromUser: string,
@@ -45,9 +45,9 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
 
     const authContext = useAuthContext()
 
-    const onMessages = createOnMessages({setSentMessages, setReceivedMessages})
-
     useEffect(() => {
+        const onMessages = createOnMessages({setSentMessages, setReceivedMessages})
+        const onReceivedMessage = createOnReceivedMessage({setReceivedMessages})
         const asyncGet = async () => {
             const token = getCookie('csrftoken')
             if (token === undefined) throw new Error('csrftoken is undefined!')
@@ -59,11 +59,11 @@ export const FriendProvider: React.FC<friendProviderProps> = ({children}: friend
         const socket = authContext.useSocket()
         socket.addEventListener('message', (event) => {
             const data = JSON.parse(event.data)
-            console.log(data)
             if (data.type === 'messages') onMessages(data.content)
+            if (data.type == 'received_message') onReceivedMessage(data.content)
         })
         const asyncSend = async () => {
-            await setTimeout(() => {
+            setTimeout(() => {
                 while (socket.readyState !== 1) {console.log(socket.readyState)}
                 socket.send(
                     JSON.stringify({

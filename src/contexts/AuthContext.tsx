@@ -1,6 +1,4 @@
-import React, { useContext, useState, PropsWithChildren } from 'react'
-import { loginRequest, registerRequest, logoutRequest } from '../api/requests'
-import { connectWs } from '../ws_api/connection'
+import React, { useContext, useState, useEffect, PropsWithChildren } from 'react'
 
 interface authContextProps {
   authenticated: boolean,

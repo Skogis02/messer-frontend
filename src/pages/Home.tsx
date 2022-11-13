@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext';
 import { FriendProvider } from '../contexts/FriendContex';
@@ -11,7 +11,7 @@ const Home: React.FC = () => {
 
     const authContext = useAuthContext()
     if (!authContext.authenticated) return <Navigate to='/login'/>
-    
+
     return (
         <div className='home-pg'>
             <FriendProvider>

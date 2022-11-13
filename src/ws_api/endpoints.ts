@@ -34,10 +34,23 @@ interface createOnMessagesProps {
 export const createOnMessages = ({setSentMessages, setReceivedMessages}: createOnMessagesProps): 
 ((messagesPython: messagesPythonProps) => void) => {
     return (messagesPython: messagesPythonProps) => {
-        console.log(messagesPython.sent_messages)
         const sentMessages: messageProps[] = messagesPython.sent_messages.map(parseMessagePython)
         const receivedMessages: messageProps[] = messagesPython.received_messages.map(parseMessagePython)
         setSentMessages(sentMessages)
         setReceivedMessages(receivedMessages)
+    }
+}
+
+interface createOnReceivedMessageProps {
+    setReceivedMessages: React.Dispatch<React.SetStateAction<messageProps[]>>
+}
+
+export const createOnReceivedMessage = ({setReceivedMessages}: createOnReceivedMessageProps): 
+((messagePython: messagePythonProps) => void) => {
+    return (messagePython: messagePythonProps) => {
+        const receivedMessage: messageProps = parseMessagePython(messagePython)
+        setReceivedMessages((prevReceivedMessages) => {
+            return prevReceivedMessages.concat(receivedMessage)
+            })
     }
 }
