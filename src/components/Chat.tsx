@@ -1,7 +1,7 @@
 import React from 'react'
 import { Message } from './Message'
 import { ChatInputField } from './ChatInputField'
-import { useFriendContext, messageProps } from '../contexts/FriendContex'
+import { useFriendContext, messageProps } from '../contexts/FriendContext'
 import './styles/Chat.css'
 
 interface createMessageProps {

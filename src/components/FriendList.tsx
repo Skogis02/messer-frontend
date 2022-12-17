@@ -1,8 +1,9 @@
 import React from 'react'
 import './styles/FriendList.css'
 import { Friend } from './Friend'
-import { useFriendContext } from '../contexts/FriendContex'
-import { FriendRequestInputField} from './FriendRequestInputField'
+import { useFriendContext, friendRequestProps} from '../contexts/FriendContext'
+import { FriendRequestInputField } from './FriendRequestInputField'
+import { ReceivedFriendRequest } from './ReceivedFriendRequest'
 
 interface renderFriendsProps {
   friends: string[],
@@ -21,6 +22,28 @@ const RenderFriends = ({friends, selectedFriend}: renderFriendsProps): JSX.Eleme
   return(friendsArr)
 }
 
+interface renderFriendRequestsProps {
+  sent: boolean,
+  friendRequests: friendRequestProps[]
+}
+
+const RenderFriendRequests = ({sent, friendRequests}: renderFriendRequestsProps) => {
+  const friendRequestArr = []
+
+  for (const friendRequest of friendRequests) {
+    friendRequestArr.push(
+        sent ? 
+        null
+        :
+        <ReceivedFriendRequest
+          friendRequest={friendRequest}
+        />
+    )
+  }
+  return friendRequestArr
+}
+
+
 export const FriendList: React.FC = () => {
 
   const friendContext = useFriendContext()
@@ -28,10 +51,17 @@ export const FriendList: React.FC = () => {
   return (
     <div className='friend-list'>
       <div className='friend-container'>
-        {RenderFriends({
-          friends: friendContext.friends,
-          selectedFriend: friendContext.selectedFriend,
-        })}
+        <>
+          {RenderFriends({
+            friends: friendContext.friends,
+            selectedFriend: friendContext.selectedFriend,
+          })}
+        </>
+        <>
+          {RenderFriendRequests({
+            sent: false, 
+            friendRequests: friendContext.receivedFriendRequests})}
+        </>
       </div>
       <FriendRequestInputField/>
     </div>

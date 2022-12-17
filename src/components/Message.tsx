@@ -1,6 +1,6 @@
 import React from 'react'
 import './styles/Message.css'
-import { messageProps } from '../contexts/FriendContex'
+import { messageProps } from '../contexts/FriendContext'
 
 interface props {
   sent: boolean,

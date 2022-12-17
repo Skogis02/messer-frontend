@@ -1,4 +1,4 @@
-import { messageProps, friendRequestProps } from '../contexts/FriendContex'
+import { messageProps, friendRequestProps } from '../contexts/FriendContext'
 
 // Messages
 

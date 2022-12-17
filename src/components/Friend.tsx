@@ -1,6 +1,6 @@
 import React from 'react'
 import './styles/Friend.css'
-import { useFriendContext } from '../contexts/FriendContex'
+import { useFriendContext } from '../contexts/FriendContext'
 
 interface friendProps {
     friendUsername: string;

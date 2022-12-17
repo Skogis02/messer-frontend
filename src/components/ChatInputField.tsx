@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react'
 import { useAuthContext } from '../contexts/AuthContext'
-import { useFriendContext } from '../contexts/FriendContex'
+import { useFriendContext, messageProps } from '../contexts/FriendContext'
 import './styles/ChatInputField.css'
 
 export const ChatInputField: React.FC = () => {
-  const [message, setMessage] = useState<string>('')
+  const [content, setContent] = useState<string>('')
 
   const authContext = useAuthContext()
   const friendContext = useFriendContext()
@@ -15,11 +15,20 @@ export const ChatInputField: React.FC = () => {
         endpoint: 'send_message',
         content: {
           friend: friendContext.selectedFriend,
-          content: message
+          content: content
         }
       })
     )
-    setMessage('')
+    setContent('')
+    const message: messageProps = {
+      toUser: friendContext.selectedFriend,
+      fromUser: '',
+      hasBeenRead: false,
+      createdAt: Date.now(),
+      readAt: null,
+      content: content
+    }
+    friendContext.setSentMessages((prevSentMessages: messageProps[]) => prevSentMessages.concat(message))
   }
 
   return (
@@ -27,10 +36,10 @@ export const ChatInputField: React.FC = () => {
     className='chat-input-field'
     >
         <input
-        onChange={((event: ChangeEvent<HTMLInputElement>) => setMessage(event.target.value))}
+        onChange={((event: ChangeEvent<HTMLInputElement>) => setContent(event.target.value))}
         className='univ-input'
         type='text'
-        value={message}
+        value={content}
         >
         </input>
         <button

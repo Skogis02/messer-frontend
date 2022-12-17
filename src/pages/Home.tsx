@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext';
-import { FriendProvider } from '../contexts/FriendContex';
+import { FriendProvider } from '../contexts/FriendContext';
 import { FriendList } from '../components/FriendList';
 import './styles/Home.css'
 import { Chat } from '../components/Chat'

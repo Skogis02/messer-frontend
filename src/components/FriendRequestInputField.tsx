@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
 import { useAuthContext } from '../contexts/AuthContext'
-import { useFriendContext } from '../contexts/FriendContex'
+import { useFriendContext } from '../contexts/FriendContext'
 import './styles/FriendRequestInputField.css'
 
 export const FriendRequestInputField: React.FC = () => {
